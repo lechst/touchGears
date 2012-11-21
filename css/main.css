@@ -114,7 +114,7 @@ div#mainDiv canvas {
     height:500px;
 }
 
-
+.messageDiv { border: solid 2px green; background-color: white; position: fixed; width: 300px; top: 10px; left: 10px; }
 
 
 

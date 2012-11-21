@@ -18,6 +18,11 @@ View = function (model){
         this.mainCtx = this.mainCanvas.getContext('2d');
     };
 
+    this.showMessage = function(message){
+        $(this.mainCtnr).append('<div class="messageDiv">'+message+'</div>');
+        $('.messageDiv').hide(3000,function() {$('.messageDiv').remove();});
+    }
+
     this.drawGearAsCircle = function(gear){
 
         this.mainCtx.beginPath();
