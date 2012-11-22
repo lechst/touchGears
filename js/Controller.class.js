@@ -8,7 +8,9 @@ Controller = function (){
 
     this.move = { xin: 0, yin: 0, xnow: 0, ynow: 0 };
 
-    this.startFingers = 0;
+    this.move2f = { xin1: 0, yin1: 0, xnow1: 0, ynow1: 0, xin2: 0, yin2: 0, xnow2: 0, ynow2: 0 };
+
+    this.startFingers = [];
 
     this.init = function(){
         this.device = this.checkDevice();
@@ -56,8 +58,15 @@ Controller = function (){
             if(length==1) {
                 that.move.xin = realTouches[0].pageX;
                 that.move.yin = realTouches[0].pageY;
-                that.startFingers = 1;
             }
+            else if(length==2){
+                that.move2f.xin1 = realTouches[0].pageX;
+                that.move2f.yin1 = realTouches[0].pageY;
+                that.move2f.xin2 = realTouches[1].pageX;
+                that.move2f.yin2 = realTouches[1].pageY;
+            }
+
+            that.startFingers.push(length);
 
         }
     }
@@ -84,6 +93,14 @@ Controller = function (){
                 that.view.setMovePoint0(that.move.xnow-that.move.xin,that.move.ynow-that.move.yin);
                 that.view.drawAllGears();
             }
+            else if(length==2){
+                that.move2f.xnow1 = realTouches[0].pageX;
+                that.move2f.ynow1 = realTouches[0].pageY;
+                that.move2f.xnow2 = realTouches[1].pageX;
+                that.move2f.ynow2 = realTouches[1].pageY;
+                that.view.setZoom(that.move2f);
+                that.view.drawAllGears();
+            }
 
         }
     }
@@ -104,15 +121,20 @@ Controller = function (){
             }
 
             if(length==0){
+                if(that.startFingers[0] == 2){
+                    that.view.setZoomFixed();
+                }
                 that.view.setPoint0();
-                that.startFingers = 0;
-            } else if(length==1) {
-                if(that.startFingers == 1){
+                that.startFingers = [];
+            }
+            else if(length==1) {
+                if(that.startFingers[0] == 1 || that.startFingers[1] == 100){
                     that.view.setPoint0();
-                } else {
+                }
+                else {
                     that.view.setMovePoint0(0,0);
                     that.view.setPoint0();
-                    that.startFingers = 1;
+                    that.startFingers[1] = 100;
                 }
 
                 that.move.xin = realTouches[0].pageX;
