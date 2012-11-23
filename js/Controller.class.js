@@ -10,7 +10,10 @@ Controller = function (){
 
     this.move2f = { xin1: 0, yin1: 0, xnow1: 0, ynow1: 0, xin2: 0, yin2: 0, xnow2: 0, ynow2: 0 };
 
+    this.startFingers0 = [];
     this.startFingers = [];
+    this.startFingers2 = [];
+    this.moveFingers = false;
 
     this.init = function(){
         this.device = this.checkDevice();
@@ -56,17 +59,13 @@ Controller = function (){
             }
 
             if(length==1) {
-                that.move.xin = realTouches[0].pageX;
-                that.move.yin = realTouches[0].pageY;
+                that.startFingers.push([realTouches[0].pageX,realTouches[0].pageY,0,0]);
             }
             else if(length==2){
-                that.move2f.xin1 = realTouches[0].pageX;
-                that.move2f.yin1 = realTouches[0].pageY;
-                that.move2f.xin2 = realTouches[1].pageX;
-                that.move2f.yin2 = realTouches[1].pageY;
+                that.startFingers2.push([realTouches[0].pageX,realTouches[0].pageY,realTouches[1].pageX,realTouches[1].pageY,0,0,0,0]);
             }
 
-            that.startFingers.push(length);
+            that.startFingers0.push(length);
 
         }
     }
@@ -86,20 +85,25 @@ Controller = function (){
                 }
             }
 
-            if(length==1) {
-                that.move.xnow = realTouches[0].pageX;
-                that.move.ynow = realTouches[0].pageY;
+            if(length==1 && that.startFingers0[0]==1) {
+                that.view.zoomMove = 1;
+                that.startFingers[0][2] = realTouches[0].pageX;
+                that.startFingers[0][3] = realTouches[0].pageY;
 
-                that.view.setMovePoint0(that.move.xnow-that.move.xin,that.move.ynow-that.move.yin);
+                that.view.setMovePoint0(that.startFingers[0][2]-that.startFingers[0][0],that.startFingers[0][3]-that.startFingers[0][1]);
                 that.view.drawAllGears();
+                that.moveFingers = true;
             }
-            else if(length==2){
-                that.move2f.xnow1 = realTouches[0].pageX;
-                that.move2f.ynow1 = realTouches[0].pageY;
-                that.move2f.xnow2 = realTouches[1].pageX;
-                that.move2f.ynow2 = realTouches[1].pageY;
+            else if(length==2 && that.startFingers0[0]==2){
+                that.view.setMovePoint0(0,0);
+                that.startFingers2[0][4] = realTouches[0].pageX;
+                that.startFingers2[0][5] = realTouches[0].pageY;
+                that.startFingers2[0][6] = realTouches[1].pageX;
+                that.startFingers2[0][7] = realTouches[1].pageY;
+                that.move2f = { xin1: that.startFingers2[0][0], yin1: that.startFingers2[0][1], xnow1: that.startFingers2[0][4], ynow1: that.startFingers2[0][5], xin2: that.startFingers2[0][2], yin2: that.startFingers2[0][3], xnow2: that.startFingers2[0][6], ynow2: that.startFingers2[0][7] }
                 that.view.setZoom(that.move2f);
                 that.view.drawAllGears();
+                that.moveFingers = true;
             }
 
         }
@@ -120,7 +124,23 @@ Controller = function (){
                 }
             }
 
-            if(length==0){
+            if(that.startFingers0[0]==1 && that.moveFingers){
+                that.view.setPoint0();
+                that.moveFingers = false;
+            }
+            else if(that.startFingers0[0]==2 && that.moveFingers){
+                that.view.setZoomFixed();
+                that.moveFingers = false;
+            }
+
+            that.startFingers0 = [];
+            that.startFingers = [];
+            that.startFingers2 = [];
+
+
+
+
+            /*if(length==0){
                 if(that.startFingers[0] == 2){
                     that.view.setZoomFixed();
                 }
@@ -139,7 +159,7 @@ Controller = function (){
 
                 that.move.xin = realTouches[0].pageX;
                 that.move.yin = realTouches[0].pageY;
-            }
+            }*/
 
         }
     }

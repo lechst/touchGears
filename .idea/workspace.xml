@@ -4,7 +4,6 @@
     <list default="true" id="2e7b7a35-6b7d-4fed-af87-11c33e71a935" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/Controller.class.js" afterPath="$PROJECT_DIR$/js/Controller.class.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/View.class.js" afterPath="$PROJECT_DIR$/js/View.class.js" />
     </list>
     <ignored path="touchGears.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,7 +26,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="54" selection-start="885" selection-end="1030" vertical-scroll-proportion="-15.692307">
+            <state line="24" column="54" selection-start="885" selection-end="1030" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -36,7 +35,7 @@
       <file leaf-file-name="Controller.class.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/Controller.class.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="128" column="13" selection-start="3902" selection-end="3902" vertical-scroll-proportion="2.1391983">
+            <state line="68" column="0" selection-start="2154" selection-end="2154" vertical-scroll-proportion="-0.5077658">
               <folding />
             </state>
           </provider>
@@ -101,10 +100,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1911" />
+    <option name="x" value="-9" />
     <option name="y" value="-9" />
     <option name="width" value="1938" />
-    <option name="height" value="1098" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -187,8 +186,8 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
@@ -229,7 +228,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1911" y="-9" width="1938" height="1098" extended-state="7" />
+    <frame x="-9" y="-9" width="1938" height="1050" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -391,14 +390,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="54" selection-start="885" selection-end="1030" vertical-scroll-proportion="-15.692307">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/View.class.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="121" column="26" selection-start="4697" selection-end="4697" vertical-scroll-proportion="0.0">
+        <state line="24" column="54" selection-start="885" selection-end="1030" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -410,9 +402,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/View.class.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="121" column="26" selection-start="4697" selection-end="4697" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/Controller.class.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="13" selection-start="3902" selection-end="3902" vertical-scroll-proportion="2.1391983">
+        <state line="68" column="0" selection-start="2154" selection-end="2154" vertical-scroll-proportion="-0.5077658">
           <folding />
         </state>
       </provider>
