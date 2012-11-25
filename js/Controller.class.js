@@ -8,7 +8,6 @@ Controller = function (){
 
     this.finger = [0,0];
     this.fingerS = [[0,0],[0,0]];
-    this.fingersNumber = 0;
 
     this.init = function(){
         this.device = this.checkDevice();
@@ -23,23 +22,23 @@ Controller = function (){
 
     this.bindMouseEvents = function() {
         $('body')[0].addEventListener('click',this.clickEvent());
-    }
+    };
 
     this.bindTouchEvents = function() {
         $('body')[0].addEventListener('touchstart',this.touchStart(),false);
         $('body')[0].addEventListener('touchmove',this.touchMove(),false);
         $('body')[0].addEventListener('touchend',this.touchEnd(),false);
         //$('body')[0].addEventListener('touchcancel',this.touchCancel(),false);
-    }
+    };
 
     this.bindGestureEvents = function() {
         $('body')[0].addEventListener('gesturestart',this.gestureStart(),false);
         $('body')[0].addEventListener('gesturechange',this.gestureChange(),false);
         $('body')[0].addEventListener('gestureend',this.gestureEnd(),false);
-    }
+    };
 
     this.touchStart = function(){
-        that = this;
+        var that = this;
         return function(e){
             e.preventDefault();
 
@@ -65,10 +64,10 @@ Controller = function (){
             }
 
         }
-    }
+    };
 
     this.touchMove = function(){
-        that = this;
+        var that = this;
         return function(e){
             e.preventDefault();
 
@@ -105,10 +104,10 @@ Controller = function (){
             }
 
         }
-    }
+    };
 
     this.touchEnd = function(){
-        that = this;
+        var that = this;
         return function(e){
             e.preventDefault();
 
@@ -134,43 +133,42 @@ Controller = function (){
             }
 
         }
-    }
+    };
 
     this.touchCancel = function(){
-        that = this;
+        var that = this;
         return function(e){
             e.preventDefault();
         }
-    }
+    };
 
     this.gestureStart = function(){
-        that = this;
+        var that = this;
         return function(e){
             e.preventDefault();
         }
-    }
+    };
 
     this.gestureChange = function(){
-        that = this;
+        var that = this;
         return function(e){
             e.preventDefault();
         }
-    }
+    };
 
     this.gestureEnd = function(){
-        that = this;
+        var that = this;
         return function(e){
             e.preventDefault();
         }
-    }
+    };
 
-    this.clickEvent = function(message){
-        that = this;
+    this.clickEvent = function(){
+        var that = this;
         return function(e){
-            //e.preventDefault();
-            //that.view.showMessage(message);
+            e.preventDefault();
         }
-    }
+    };
 
     this.checkDevice = function(){
         var ua = navigator.userAgent;
@@ -184,7 +182,7 @@ Controller = function (){
             firefox: ua.match(/Firefox/)
         };
         return checker;
-    }
+    };
 
     this.init();
 

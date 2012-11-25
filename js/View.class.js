@@ -13,6 +13,13 @@ View = function (model){
                   };
 
     this.init = function(){
+
+        this.mainLayout();
+        this.chooseMode();
+    };
+
+    this.mainLayout = function() {
+
         var idOfMainDiv = 'mainDiv';
 
         document.write('<div id="'+idOfMainDiv+'"></div>');
@@ -24,17 +31,16 @@ View = function (model){
         this.mainCanvas.height = 500;
         this.mainCtx = this.mainCanvas.getContext('2d');
 
-        this.chooseMode();
+    };
+
+    this.chooseMode = function(){
+        $(this.mainCtnr).append('<div class="buttons"><input type="radio" name="mode" class="rescale"/>Rescale <input type="radio" name="mode" class="normal"/>Normal</div>');
     };
 
     this.showMessage = function(message){
         $(this.mainCtnr).append('<div class="messageDiv">'+message+'</div>');
         $('.messageDiv').hide(3000,function() {$('.messageDiv').remove();});
-    }
-
-    this.chooseMode = function(){
-        $(this.mainCtnr).append('<div class="buttons"><input type="radio" name="mode" class="rescale"/>Rescale <input type="radio" name="mode" class="normal"/>Normal</div>');
-    }
+    };
 
     this.drawGear = function(gear){
         console.log(gear);
@@ -49,10 +55,10 @@ View = function (model){
 
         this.mainCtx.moveTo(x + r0, y);
 
-        dAlpha = 2*Math.PI/gear.n;
+        var dAlpha = 2*Math.PI/gear.n;
 
-        z = 0.63;
-        w = (r0/r1)*0.8;
+        var z = 0.63;
+        var w = (r0/r1)*0.8;
 
         for(var i=0; i<gear.n;i++)
         {
@@ -69,25 +75,23 @@ View = function (model){
 
         this.mainCtx.closePath();
         this.mainCtx.fill();
-    }
+    };
 
     this.drawAllGears = function(){
 
         this.mainCtx.fillStyle = 'white';
         this.mainCtx.fillRect(0,0,500,500);
 
-        gears = model.getGears();
+        var gears = model.getGears();
 
-        for (gId in gears)
+        for (var gId in gears)
         {
             this.drawGear(gears[gId]);
         }
 
-    }
+    };
 
     this.init();
-
-
 
 };
 
