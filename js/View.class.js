@@ -1,17 +1,16 @@
 View = function (model){
 
     this.model = model;
+
     this.mainCtnr = {};
     this.mainCanvas = {};
-    this.mainCanvas2 = {};
     this.mainCtx = {};
-    this.mainCtx2 = {};
-    this.x0 = 0;
-    this.y0 = 0;
-    this.zoom = 1;
-    this.zoomMove = 1;
-    this.moveRight = 0;
-    this.moveDown = 0;
+
+    this.window = { point0: [0,0],
+                    zoom: 1,
+                    changePoint0: function(x,y) { this.point0[0]+=x; this.point0[1]+=y; },
+                    changeZoom: function (x,y,z) { this.point0[0]=x-(x-this.point0[0])*z; this.point0[1]=y-(y-this.point0[1])*z; this.zoom*=z; }
+                  };
 
     this.init = function(){
         var idOfMainDiv = 'mainDiv';
@@ -24,20 +23,6 @@ View = function (model){
         this.mainCanvas.width = 500;
         this.mainCanvas.height = 500;
         this.mainCtx = this.mainCanvas.getContext('2d');
-
-        document.write('<canvas id="maly"></canvas>');
-        this.mainCanvas2 = document.getElementById('maly');
-        $(this.mainCanvas2).css('width',100);
-        $(this.mainCanvas2).css('height',100);
-        $(this.mainCanvas2).css('left',500);
-        $(this.mainCanvas2).css('top',0);
-        $(this.mainCanvas2).css('position','fixed');
-        $(this.mainCanvas2).css('z-index','10000');
-        $(this.mainCanvas2).css('background-color','white');
-        this.mainCanvas2.width = 500;
-        this.mainCanvas2.height = 500;
-        this.mainCtx2 = this.mainCanvas2.getContext('2d');
-
 
         this.chooseMode();
     };
@@ -57,60 +42,34 @@ View = function (model){
         this.mainCtx.fillStyle = '#f00';
         this.mainCtx.beginPath();
 
-        this.mainCtx.moveTo(this.zoom*this.zoomMove*gear.x+this.x0+this.moveRight+this.zoom*this.zoomMove*gear.r0, this.zoom*this.zoomMove*gear.y+this.y0+this.moveDown);
+        var x = gear.x * this.window.zoom + this.window.point0[0];
+        var y = gear.y * this.window.zoom + this.window.point0[1];
+        var r0 = gear.r0 * this.window.zoom;
+        var r1 = gear.r1 * this.window.zoom;
+
+        this.mainCtx.moveTo(x + r0, y);
 
         dAlpha = 2*Math.PI/gear.n;
 
         z = 0.63;
-        w = (gear.r0/gear.r1)*0.8;
+        w = (r0/r1)*0.8;
 
         for(var i=0; i<gear.n;i++)
         {
 
-            this.mainCtx.lineTo(this.zoom*this.zoomMove*gear.x+this.x0+this.moveRight+this.zoom*this.zoomMove*gear.r0*Math.cos((i+((1-z)/2))*dAlpha),this.zoom*this.zoomMove*gear.y+this.y0+this.moveDown+this.zoom*this.zoomMove*gear.r0*Math.sin((i+(1-z)/2)*dAlpha));
+            this.mainCtx.lineTo(x + r0*Math.cos((i+((1-z)/2))*dAlpha), y + r0*Math.sin((i+(1-z)/2)*dAlpha));
 
-            this.mainCtx.lineTo(this.zoom*this.zoomMove*gear.x+this.x0+this.moveRight+this.zoom*this.zoomMove*gear.r1*Math.cos((i+((1-z*w)/2))*dAlpha),this.zoom*this.zoomMove*gear.y+this.y0+this.moveDown+this.zoom*this.zoomMove*gear.r1*Math.sin((i+(1-z*w)/2)*dAlpha));
+            this.mainCtx.lineTo(x + r1*Math.cos((i+((1-z*w)/2))*dAlpha), y + r1*Math.sin((i+(1-z*w)/2)*dAlpha));
 
-            this.mainCtx.lineTo(this.zoom*this.zoomMove*gear.x+this.x0+this.moveRight+this.zoom*this.zoomMove*gear.r1*Math.cos((i+((1-(1-z*w)/2)))*dAlpha),this.zoom*this.zoomMove*gear.y+this.y0+this.moveDown+this.zoom*this.zoomMove*gear.r1*Math.sin((i+(1-(1-z*w)/2))*dAlpha));
+            this.mainCtx.lineTo(x + r1*Math.cos((i+((1-(1-z*w)/2)))*dAlpha), y + r1*Math.sin((i+(1-(1-z*w)/2))*dAlpha));
 
-            this.mainCtx.lineTo(this.zoom*this.zoomMove*gear.x+this.x0+this.moveRight+this.zoom*this.zoomMove*gear.r0*Math.cos((i+((1-(1-z)/2)))*dAlpha),this.zoom*this.zoomMove*gear.y+this.y0+this.moveDown+this.zoom*this.zoomMove*gear.r0*Math.sin((i+(1-(1-z)/2))*dAlpha));
+            this.mainCtx.lineTo(x + r0*Math.cos((i+((1-(1-z)/2)))*dAlpha), y + r0*Math.sin((i+(1-(1-z)/2))*dAlpha));
 
         }
 
         this.mainCtx.closePath();
         this.mainCtx.fill();
     }
-
-    this.drawGearWorld = function(gear){
-        console.log(gear);
-
-        this.mainCtx2.fillStyle = '#f00';
-        this.mainCtx2.beginPath();
-
-        this.mainCtx2.moveTo(1*1*gear.x+0+0+1*1*gear.r0, 1*1*gear.y+0+0);
-
-        dAlpha = 2*Math.PI/gear.n;
-
-        z = 0.63;
-        w = (gear.r0/gear.r1)*0.8;
-
-        for(var i=0; i<gear.n;i++)
-        {
-
-            this.mainCtx2.lineTo(1*1*gear.x+0+0+1*1*gear.r0*Math.cos((i+((1-z)/2))*dAlpha),1*1*gear.y+0+0+1*1*gear.r0*Math.sin((i+(1-z)/2)*dAlpha));
-
-            this.mainCtx2.lineTo(1*1*gear.x+0+0+1*1*gear.r1*Math.cos((i+((1-z*w)/2))*dAlpha),1*1*gear.y+0+0+1*1*gear.r1*Math.sin((i+(1-z*w)/2)*dAlpha));
-
-            this.mainCtx2.lineTo(1*1*gear.x+0+0+1*1*gear.r1*Math.cos((i+((1-(1-z*w)/2)))*dAlpha),1*1*gear.y+0+0+1*1*gear.r1*Math.sin((i+(1-(1-z*w)/2))*dAlpha));
-
-            this.mainCtx2.lineTo(1*1*gear.x+0+0+1*1*gear.r0*Math.cos((i+((1-(1-z)/2)))*dAlpha),1*1*gear.y+0+0+1*1*gear.r0*Math.sin((i+(1-(1-z)/2))*dAlpha));
-
-        }
-
-        this.mainCtx2.closePath();
-        this.mainCtx2.fill();
-    }
-
 
     this.drawAllGears = function(){
 
@@ -122,29 +81,8 @@ View = function (model){
         for (gId in gears)
         {
             this.drawGear(gears[gId]);
-            this.drawGearWorld(gears[gId]);
         }
 
-    }
-
-    this.setMovePoint0 = function(moveR,moveD){
-        this.moveRight = moveR;
-        this.moveDown = moveD;
-    }
-
-    this.setPoint0 = function(){
-        this.x0 = this.x0+this.moveRight;
-        this.y0 = this.y0+this.moveDown;
-    }
-
-    this.setZoom = function(m2f){
-        var dnow = Math.sqrt((m2f.xnow2-m2f.xnow1)*(m2f.xnow2-m2f.xnow1)+(m2f.ynow2-m2f.ynow1)*(m2f.ynow2-m2f.ynow1));
-        var din = Math.sqrt((m2f.xin2-m2f.xin1)*(m2f.xin2-m2f.xin1)+(m2f.yin2-m2f.yin1)*(m2f.yin2-m2f.yin1));
-        this.zoomMove = dnow/din;
-    }
-
-    this.setZoomFixed = function(){
-        this.zoom = this.zoom * this.zoomMove;
     }
 
     this.init();
